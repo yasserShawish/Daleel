@@ -1,4 +1,19 @@
 <resources>
-    <string name="app_name">Daleel</string>
+    <string name="app_name">دليل</string>
     <string name="action_settings">Settings</string>
+    <string name="search_label">ابحث في مدينتك ...</string>
+    <string-array name="cities_array">
+        <item>اربد</item>
+        <item>عمان</item>
+        <item>المفرق</item>
+        <item>الزرقاء</item>
+        <item>جرش</item>
+        <item>عجلون</item>
+        <item>العقبة</item>
+        <item>مأدبا</item>
+        <item>الكرك</item>
+        <item>الطفيلة</item>
+        <item>السلط</item>
+        <item>معان</item>
+    </string-array>
 </resources>
