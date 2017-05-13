@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/market_list_image"
+        android:layout_width="84dp"
+        android:layout_height="81dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="343dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/market_list_name_view"
+            android:layout_gravity="center"
+            android:layout_width="328dp"
+            android:layout_height="38dp"
+            android:text="TextView"
+            android:gravity="left|center"/>
+
+        <TextView
+            android:id="@+id/market_list_address_view"
+            android:layout_gravity="center"
+            android:layout_width="325dp"
+            android:layout_height="38dp"
+            android:text="TextView"
+            android:gravity="left|center"/>
+    </LinearLayout>
+
+</LinearLayout>

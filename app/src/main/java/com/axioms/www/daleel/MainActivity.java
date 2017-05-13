@@ -1,72 +1,66 @@
 package com.axioms.www.daleel;
 
-import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+import com.axioms.www.daleel.Adapters.CustomAdapter;
+import com.axioms.www.daleel.main.MainInteractorImpl;
+import com.axioms.www.daleel.main.MainPresenter;
+import com.axioms.www.daleel.main.MainPresenterImpl;
+import com.axioms.www.daleel.main.MainView;
+import com.axioms.www.daleel.metadata.MyCategory;
+import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.ShoppingCartHolder;
+import com.axioms.www.daleel.utils.DallelConstant;
 
-    int[] categ_images = {R.drawable.food_fork_knife_restaurant_eating_glyph ,R.drawable.food_drink  ,R.drawable.popcorn ,R.drawable.cart ,R.drawable.medical_icon } ;
-    String[] catiegory_array = {"مطاعم","مقاهي","ترفيه","تسوق","اطباء"};
-    ListView listView ;
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class MainActivity extends AppCompatActivity implements MainView, AdapterView.OnItemSelectedListener {
+
+
+    @BindView(R.id.catig_list)
+    AbsListView listView ;
+    @BindView(R.id.city_spinner)
     Spinner spinner;
-    Button allCatg;
+    @BindView(R.id.arro_left)
     ImageButton left_ad_nav;
+    @BindView(R.id.arro_right)
     ImageButton right_ad_nav;
+    @BindView(R.id.ads_image)
     ImageView adsImage;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.cart_button)
+    Button cartButton;
+
+    MainPresenter presenter ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-
-        bindAllTheElements();
-
-        setACtionListener();
-
+        presenter = new MainPresenterImpl(this , new MainInteractorImpl());
         createListView();
-
         createSpinnerList();
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-    }
-
-    private void setACtionListener() {
-        allCatg.setOnClickListener(this);
-    }
-
-    private void bindAllTheElements() {
-        spinner = (Spinner) findViewById(R.id.city_spinner);
-        listView = (ListView) findViewById(R.id.catig_list);
-        adsImage = (ImageView) findViewById(R.id.ads_image);
-        left_ad_nav = (ImageButton) findViewById(R.id.arro_left);
-        right_ad_nav = (ImageButton) findViewById(R.id.arro_right);
-        allCatg = (Button) findViewById(R.id.all_cat_botton);
     }
 
     private void createSpinnerList() {
@@ -78,8 +72,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void createListView() {
-        CustomAdapter category_adapter = new CustomAdapter(this ,catiegory_array , categ_images);
+        ArrayList<MyCategory> categories = getAllCategories();
+        CustomAdapter category_adapter = new CustomAdapter(this , R.layout.custom_list , categories , ShoppingCartHolder.Instance());
         listView.setAdapter(category_adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MyCategory category = (MyCategory) adapterView.getItemAtPosition(i);
+                presenter.navigateToCategory(category);
+            }
+        });
+    }
+
+    private ArrayList<MyCategory> getAllCategories() {
+        return presenter.getAllCategories();
     }
 
     @Override
@@ -114,22 +120,48 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.all_cat_botton:
-                Intent allCat = new Intent(getApplicationContext() , AllCategory.class);
-                startActivity(allCat);
-            break;
-            default:
-                break;
-
-        }
+    @OnClick(R.id.all_cat_botton)
+    public void allCatClick() {
+        presenter.showAllCategory();
     }
 
+    @OnClick(R.id.cart_button)
+    public void goToCart(){
+        Intent intent = new Intent(this , ShowCart.class);
+        startActivity(intent);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         finish();
     }
+
+    @Override
+    public void showAllCategory() {
+        Intent allCat = new Intent(getApplicationContext() , AllCategory.class);
+        startActivity(allCat);
+    }
+
+    @Override
+    public void navigateToCategory(MyCategory category) {
+        Intent intent = new Intent(getApplicationContext() , ShowCategory.class);
+        intent.putExtra(DallelConstant.CATEGORY.getName() ,category);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onStart();
+        int cartSize = ShoppingCartHolder.Instance().shoppingCartSize();
+        if (cartSize > 0){
+            cartButton.setText(String.format("%d" , cartSize));
+            cartButton.setTextColor(Color.WHITE);
+        }else{
+            cartButton.setText(String.format("%d" , 0));
+            cartButton.setTextColor(Color.RED);
+        }
+    }
+
+
+
 }

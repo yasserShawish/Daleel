@@ -16,4 +16,22 @@
         <item>السلط</item>
         <item>معان</item>
     </string-array>
+    <string name="title_activity_market">المتجر</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="products_name_label">الاسم</string>
+    <string name="products_price_label">السعر</string>
+    <string name="market_name_info">اسم المحل: </string>
+    <string name="city_info">المدينه: </string>
+    <string name="phone_number_info">رقم الهاتف: </string>
+    <string name="fax_info">فاكس: </string>
+    <string name="address_info">العنوان: </string>
+    <string name="order_offer">اطلب</string>
+    <string name="product_type">product</string>
+    <string name="offer_type">offer</string>
+    <integer name="numberOfTabsForMarket">3</integer>
+    <string-array name="tabs_titles">
+        <item>السلع المتوفرة</item>
+        <item>العروض</item>
+        <item>معلومات المحل</item>
+    </string-array>
 </resources>

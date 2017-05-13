@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/product_list">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/product_row"
+        android:gravity="center_vertical"
+        android:descendantFocusability="blocksDescendants">
+
+        <Button
+            android:text="اطلب"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/order_row_buttom"
+            android:textAlignment="center"
+            android:background="@color/windowBackground" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/price_txt_row"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/product_name_row"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/cart"
+            android:id="@+id/product_image_row"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</LinearLayout>

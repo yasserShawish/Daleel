@@ -1,38 +1,52 @@
 package com.axioms.www.daleel;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.axioms.www.daleel.Adapters.CustomAdapter;
+import com.axioms.www.daleel.metadata.MyCategory;
+import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.ShoppingCartHolder;
+import com.axioms.www.daleel.services.CategoryService;
+import com.axioms.www.daleel.services.impl.CategoryServiceImpl;
+
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class AllCategory extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
-    int[] categ_images = {R.drawable.food_fork_knife_restaurant_eating_glyph ,R.drawable.food_drink  ,R.drawable.popcorn ,R.drawable.cart ,R.drawable.medical_icon , R.drawable.food_fork_knife_restaurant_eating_glyph ,R.drawable.food_drink  ,R.drawable.popcorn ,R.drawable.cart ,R.drawable.medical_icon } ;
-    String[] catiegory_array = {"مطاعم","مقاهي","ترفيه","تسوق","اطباء" , "مطاعم","مقاهي","ترفيه","تسوق","اطباء"};
+    @BindView(R.id.all_category_list)
     ListView allCat_list;
+    @BindView(R.id.cart_button)
+    Button cartButton;
+    CategoryService categoryService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_category);
+        ButterKnife.bind(this);
+        categoryService = new CategoryServiceImpl();
 
-        bindElement();
 
         createListViewAdapter();
     }
 
     private void createListViewAdapter() {
-        CustomAdapter adapter = new CustomAdapter(this , catiegory_array ,categ_images);
+        ArrayList<MyCategory> allCategories = categoryService.findALlCategory();
+        CustomAdapter adapter = new CustomAdapter(this , R.layout.custom_list ,allCategories , ShoppingCartHolder.Instance());
         allCat_list.setAdapter(adapter);
         allCat_list.setOnItemSelectedListener(this);
     }
 
-    private void bindElement() {
-        allCat_list = (ListView) findViewById(R.id.all_category_list);
-    }
 
     @Override
     protected void onDestroy() {
@@ -49,5 +63,18 @@ public class AllCategory extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        int cartSize = ShoppingCartHolder.Instance().shoppingCartSize();
+        if (cartSize > 0){
+            cartButton.setText(String.format("%d" , cartSize));
+            cartButton.setTextColor(Color.WHITE);
+        }else{
+            cartButton.setText(String.format("%d" , 0));
+            cartButton.setTextColor(Color.RED);
+        }
     }
 }

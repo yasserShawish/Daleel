@@ -16,41 +16,7 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/city_spinner"
-                android:layout_gravity="center_vertical" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:text="@string/search_label"
-                android:ems="10"
-                android:id="@+id/search_input" />
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-    </android.support.design.widget.AppBarLayout>
+   <include layout="@layout/app_bar_comon"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -60,40 +26,7 @@
         android:weightSum="1"
         android:layout_marginTop="56dp">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:id="@+id/ads_lay"
-            android:gravity="center_vertical">
-
-            <ImageButton
-                android:layout_width="45dp"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/arrow_left"
-                android:id="@+id/arro_left"
-                tools:layout_gravity="left"
-                android:layout_gravity="left|center_horizontal"
-                android:background="#00000000" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:srcCompat="@mipmap/ic_launcher"
-                android:id="@+id/ads_image"
-                android:layout_weight="10" />
-
-            <ImageButton
-                android:layout_width="46dp"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/arrow_right"
-                android:id="@+id/arro_right"
-                tools:layout_gravity="right"
-                android:layout_gravity="right"
-                android:baselineAlignBottom="true"
-                android:background="#00000000" />
-        </LinearLayout>
-
+        <include layout="@layout/ads_layout"/>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"

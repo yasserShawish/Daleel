@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            android:id="@+id/icon_image_view_details"
+            android:layout_width="79dp"
+            android:layout_height="173dp"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="182dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="30dp"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/name_text_view_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/price_text_view_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_type_label"
+                android:layout_weight="1"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/remove_item_button"
+                android:layout_width="36dp"
+                android:layout_height="38dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/minus54351"
+                android:layout_gravity="top|left"
+                android:gravity="left"
+                android:textAlignment="gravity"
+                android:layout_marginRight="18dip" />
+
+        </LinearLayout>
+    </LinearLayout>

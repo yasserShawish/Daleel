@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_all_category"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.axioms.www.daleel.AllCategory">
+    tools:context="com.axioms.www.daleel.AllCategory"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ListView
+    <include layout="@layout/app_bar_comon"/>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:id="@+id/all_category_list" />
-</LinearLayout>
+        android:layout_marginTop="56dp">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:id="@+id/all_category_list" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

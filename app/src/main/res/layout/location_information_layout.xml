@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:id="@+id/infformation_lay">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/information_lay_container"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:id="@+id/inforamtion_lay_title_wrapper">
+
+            <TextView
+                android:id="@+id/section_label"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:textAlignment="gravity"
+                android:gravity="right|center_vertical"
+                android:hint="awdasdasdasdasdasdasd"
+                android:paddingRight="15dp"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/information_lay_body">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/information_table"
+                android:textAlignment="gravity"
+                android:gravity="right">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/name_row"
+                    android:paddingRight="15dp"
+                    android:gravity="right|center_vertical"
+                    android:textAlignment="gravity" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/city_row"
+                    android:paddingRight="15dp"
+                    android:gravity="right|center_vertical"
+                    android:textAlignment="gravity"/>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/phone_row"
+                    android:paddingRight="15dp"
+                    android:gravity="right|center_vertical"
+                    android:textAlignment="gravity"/>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/fax_row"
+                    android:paddingRight="15dp"
+                    android:gravity="right|center_vertical"
+                    android:textAlignment="gravity"/>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/address_row"
+                    android:paddingRight="15dp"
+                    android:gravity="right|center_vertical"
+                    android:textAlignment="gravity"/>
+
+            </TableLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
