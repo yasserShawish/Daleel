@@ -43,12 +43,11 @@ public class ProductAdapter<T> extends CustomAdapter<T> {
         rowView = inflater.inflate(textViewResourceId, null);
         holder.name=(TextView) rowView.findViewById(R.id.product_name_row);
         holder.price = (TextView) rowView.findViewById(R.id.price_txt_row);
-        holder.img=(ImageView) rowView.findViewById(R.id.product_image_row);
         holder.orderButton=(Button) rowView.findViewById(R.id.order_row_buttom);
         holder.orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cartHolder.addToCart(currentProduct);
+                cartHolder.addToCart(currentProduct , 1);
                 Button cartButton = (Button) view.getRootView().findViewById(R.id.cart_button);
                 cartButton.setText(String.format("%d", cartHolder.shoppingCartSize()));
                 cartButton.setTextColor(Color.RED);
@@ -56,7 +55,6 @@ public class ProductAdapter<T> extends CustomAdapter<T> {
         });
         holder.name.setText(currentProduct.getName());
         holder.price.setText(currentProduct.getPrice().getPrice()+""+currentProduct.getPrice().getCurrency());
-        holder.img.setImageResource(currentProduct.getImage());
         return rowView;
     }
 

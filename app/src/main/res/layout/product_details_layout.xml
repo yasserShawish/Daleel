@@ -39,6 +39,12 @@
                 android:layout_weight="1"
                 android:textAlignment="center" />
 
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_quantity" />
+
             <Button
                 android:id="@+id/remove_item_button"
                 android:layout_width="36dp"

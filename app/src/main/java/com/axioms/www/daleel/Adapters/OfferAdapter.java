@@ -50,7 +50,7 @@ public class OfferAdapter<T> extends CustomAdapter<T>{
             @Override
             public void onClick(View view) {
                 ShoppingCartHolder shoppingCartHolder = ShoppingCartHolder.Instance();
-                shoppingCartHolder.addToCart(currentOffer);
+                shoppingCartHolder.addToCart(currentOffer ,1);
                 Button cartButton = (Button) view.getRootView().findViewById(R.id.cart_button);
                 cartButton.setText(String.format("%d", shoppingCartHolder.shoppingCartSize()));
                 cartButton.setTextColor(Color.RED);

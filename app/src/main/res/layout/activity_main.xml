@@ -27,11 +27,21 @@
         android:layout_marginTop="56dp">
 
         <include layout="@layout/ads_layout"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="@string/category_label"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:background="@color/textColorMain"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"/>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="303dp"
-            android:id="@+id/list_lay">
+            android:layout_height="match_parent"
+            android:id="@+id/list_lay"
+            android:layout_marginTop="1dp">
 
             <ListView
                 android:layout_width="match_parent"
@@ -41,7 +51,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
+<!--        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -56,7 +66,7 @@
                 android:layout_gravity="center"
                 android:drawableRight="@drawable/arrow_right"
                 android:background="@android:color/holo_blue_light" />
-        </LinearLayout>
+        </LinearLayout>-->
     </LinearLayout>
 
 

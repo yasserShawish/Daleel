@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -46,7 +47,7 @@ public class ShowCategory extends AppCompatActivity implements CategoryView {
         final MyCategory category = (MyCategory) getIntent().getSerializableExtra(DallelConstant.CATEGORY.getName());
         catgName.setText(category.getName());
 
-        AdapterMarket adapter  = new AdapterMarket(this ,R.id.market_list_name_view  , (ArrayList<MarketMeta>) getCategoryMarket(category));
+        AdapterMarket adapter  = new AdapterMarket(this ,R.layout.market_list, (ArrayList<MarketMeta>) getCategoryMarket(category));
         marketList.setAdapter(adapter);
         marketList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,6 +57,7 @@ public class ShowCategory extends AppCompatActivity implements CategoryView {
             }
         });
 
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
     }
 

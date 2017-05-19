@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,10 +40,6 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
     AbsListView listView ;
     @BindView(R.id.city_spinner)
     Spinner spinner;
-    @BindView(R.id.arro_left)
-    ImageButton left_ad_nav;
-    @BindView(R.id.arro_right)
-    ImageButton right_ad_nav;
     @BindView(R.id.ads_image)
     ImageView adsImage;
     @BindView(R.id.toolbar)
@@ -61,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         presenter = new MainPresenterImpl(this , new MainInteractorImpl());
         createListView();
         createSpinnerList();
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     private void createSpinnerList() {
@@ -120,11 +118,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
 
     }
 
-    @OnClick(R.id.all_cat_botton)
+    /*@OnClick(R.id.all_cat_botton)
     public void allCatClick() {
         presenter.showAllCategory();
     }
-
+*/
     @OnClick(R.id.cart_button)
     public void goToCart(){
         Intent intent = new Intent(this , ShowCart.class);

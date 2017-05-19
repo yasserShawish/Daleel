@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class CategoryServiceImpl implements CategoryService{
 
-    int[] categ_images = {R.drawable.food_fork_knife_restaurant_eating_glyph ,R.drawable.food_drink  ,R.drawable.popcorn ,R.drawable.cart ,R.drawable.medical_icon } ;
-    String[] catiegory_array = {"مطاعم","مقاهي","ترفيه","تسوق","اطباء"};
+    int[] categ_images = {R.drawable.books ,R.drawable.resturntsfoods ,R.drawable.fernture,R.drawable.water} ;
+    String[] catiegory_array = {"كتب","مطاعم","اثاث","مياه"};
 
     @Override
     public ArrayList<MyCategory> findALlCategory(){

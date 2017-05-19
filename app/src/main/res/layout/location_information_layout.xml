@@ -15,23 +15,6 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:id="@+id/inforamtion_lay_title_wrapper">
-
-            <TextView
-                android:id="@+id/section_label"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:textAlignment="gravity"
-                android:gravity="right|center_vertical"
-                android:hint="awdasdasdasdasdasdasd"
-                android:paddingRight="15dp"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/information_lay_body">
 

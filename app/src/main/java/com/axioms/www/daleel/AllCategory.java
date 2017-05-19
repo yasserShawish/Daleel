@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -36,7 +37,7 @@ public class AllCategory extends AppCompatActivity implements AdapterView.OnItem
         ButterKnife.bind(this);
         categoryService = new CategoryServiceImpl();
 
-
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         createListViewAdapter();
     }
 

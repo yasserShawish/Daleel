@@ -17,16 +17,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.axioms.www.daleel.Adapters.GenericExpandableListAdapter;
 import com.axioms.www.daleel.Adapters.OfferAdapter;
-import com.axioms.www.daleel.Adapters.ProductAdapter;
 import com.axioms.www.daleel.Market.MarketInteractorImpl;
 import com.axioms.www.daleel.Market.MarketPresenter;
 import com.axioms.www.daleel.Market.MarketPresenterImpl;
@@ -34,8 +36,11 @@ import com.axioms.www.daleel.Market.MarketView;
 import com.axioms.www.daleel.metadata.MarketMeta;
 import com.axioms.www.daleel.metadata.MyCategory;
 import com.axioms.www.daleel.metadata.OfferMeta;
+import com.axioms.www.daleel.metadata.ProductFamily;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.ShoppingCartHolder;
 import com.axioms.www.daleel.utils.DallelConstant;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,14 +62,23 @@ public class MarketActivity extends AppCompatActivity implements MarketView {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
+    @BindView(R.id.container)
+    ViewPager mViewPager;
     @BindView(R.id.market_name_text)
     TextView marketName;
     @BindView((R.id.market_image))
     ImageView marketImage;
-    static ProductAdapter productAdapter;
     @BindView(R.id.cart_button)
     Button cartButton;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.tabs)
+    TabLayout tabLayout;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+    @BindView(R.id.market_city_text)
+    TextView marketCity;
+    static MarketMeta marketMeta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,40 +87,31 @@ public class MarketActivity extends AppCompatActivity implements MarketView {
         ButterKnife.bind(this);
         presenter = new MarketPresenterImpl(this , new MarketInteractorImpl());
 
-        final MarketMeta marketMeta = (MarketMeta) getIntent().getSerializableExtra(DallelConstant.MARKET.getName());
+        marketMeta = (MarketMeta) getIntent().getSerializableExtra(DallelConstant.MARKET.getName());
         marketName.setText(marketMeta.getName());
+        marketCity.setText(marketMeta.getAddress().getCity());
         marketImage.setImageResource(marketMeta.getImage());
         this.setTitle(marketMeta.getName());
-        productAdapter = new ProductAdapter(this , R.layout.products_list_lay ,marketMeta.getProducts());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager() , marketMeta);
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
-                presenter.goBack(marketMeta.getCategory());
-            }
-        });
 
         ShoppingCartHolder shoppingCartHolder = ShoppingCartHolder.Instance();
         cartButton.setText(String.format("%d", shoppingCartHolder.getCart().getSize()));
         cartButton.setTextColor(Color.RED);
     }
 
+    @OnClick(R.id.fab)
+    public void returnToBack(){
+        presenter.goBack(marketMeta.getCategory());
+    }
     @OnClick(R.id.cart_button)
     void productDetails(){
     }
@@ -173,21 +178,16 @@ public class MarketActivity extends AppCompatActivity implements MarketView {
                                  Bundle savedInstanceState) {
             //in this method the process of rendering the taps happens here (need to clean up)
             int section_number = getArguments().getInt(ARG_SECTION_NUMBER);
-            MarketMeta currentMarket = (MarketMeta) getArguments().getSerializable(DallelConstant.MARKET.getName());
             rootView = inflater.inflate(getLayoutId(section_number), container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getTabTitle(section_number-1));
             if(section_number == 1){
-                AbsListView productsList = (AbsListView) rootView.findViewById(R.id.products_list);
+                List<ProductFamily> pfList = marketMeta.getProductFamily();
+                GenericExpandableListAdapter productAdapter =
+                        new GenericExpandableListAdapter(getContext() ,pfList , marketMeta.getChildProductMap(),
+                                R.layout.product_group_lay ,R.layout.products_list_lay);
+                ExpandableListView productsList = (ExpandableListView) rootView.findViewById(R.id.products_list);
                 productsList.setAdapter(productAdapter);
-                productsList.setOnItemClickListener(new AbsListView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(getContext() , "ahmadAbabneh" , Toast.LENGTH_LONG).show();
-                    }
-                });
             }else if(section_number == 2){
-                OfferAdapter<OfferMeta> adapter = new OfferAdapter(getContext() , R.layout.offers_templates , currentMarket.getOffers());
+                OfferAdapter<OfferMeta> adapter = new OfferAdapter(getContext() , R.layout.offers_templates , marketMeta.getOffers());
                 AbsListView offersListView = (AbsListView) rootView.findViewById(R.id.offers_list_view);
                 offersListView.setAdapter(adapter);
                 offersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -198,7 +198,7 @@ public class MarketActivity extends AppCompatActivity implements MarketView {
                 });
             }else if(section_number == 3){
                 //here just we render the contact information about the current market
-                renderMarketInformation(currentMarket);
+                renderMarketInformation(marketMeta);
             }
             return rootView;
         }

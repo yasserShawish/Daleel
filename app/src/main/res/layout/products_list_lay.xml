@@ -14,36 +14,53 @@
         android:gravity="center_vertical"
         android:descendantFocusability="blocksDescendants">
 
+        <TextView
+            android:text="TextView"
+            android:layout_height="30dp"
+            android:id="@+id/price_txt_row"
+            android:layout_weight="0.13"
+            android:gravity="center"
+            android:layout_width="40dp" />
+
         <Button
-            android:text="اطلب"
-            android:layout_width="75dp"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="27dp"
             android:id="@+id/order_row_buttom"
             android:textAlignment="center"
-            android:background="@color/windowBackground" />
+            android:background="@drawable/cercle" />
+
+        <Button
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/plusBotton"
+            android:background="@drawable/plusk"/>
+
+        <EditText
+            android:layout_width="51dp"
+            android:layout_height="30dp"
+            android:inputType="number"
+            android:id="@+id/itemNumber"
+            android:editable="true"
+            android:ems="10"
+            android:layout_weight="0.03"
+            android:focusableInTouchMode="false"
+            android:enabled="true"
+            android:numeric="integer"
+            android:allowUndo="false" />
+
+        <Button
+            android:layout_width="27dp"
+            android:layout_height="25dp"
+            android:id="@+id/minusBotton"
+            android:background="@drawable/minusk" />
 
         <TextView
             android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/price_txt_row"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
             android:id="@+id/product_name_row"
-            android:layout_weight="1"
+            android:layout_weight="0.93"
             android:gravity="center" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/cart"
-            android:id="@+id/product_image_row"
-            android:layout_weight="1" />
 
     </LinearLayout>
 </LinearLayout>

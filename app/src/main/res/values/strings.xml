@@ -28,6 +28,7 @@
     <string name="order_offer">اطلب</string>
     <string name="product_type">product</string>
     <string name="offer_type">offer</string>
+    <string name="category_label">الفئات</string>
     <integer name="numberOfTabsForMarket">3</integer>
     <string-array name="tabs_titles">
         <item>السلع المتوفرة</item>

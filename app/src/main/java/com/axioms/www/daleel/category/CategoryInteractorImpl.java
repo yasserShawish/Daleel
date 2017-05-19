@@ -7,6 +7,7 @@ import com.axioms.www.daleel.metadata.MyCategory;
 import com.axioms.www.daleel.metadata.OfferMeta;
 import com.axioms.www.daleel.metadata.Price;
 import com.axioms.www.daleel.metadata.Product;
+import com.axioms.www.daleel.metadata.ProductFamily;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.Item;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class CategoryInteractorImpl implements ICategoryInteractor{
         market1.setmId(Long.valueOf(1));
         market1.setCategory(category);
         market1.setImage(R.drawable.shawermaji);
-        market1.setProducts(getFackProducts());
+        market1.setProductFamily(getFackFamilyProductList());
         market1.setOffers(getFakeOffers());
         //----------------------------------------1
         MyAddress address2 = new MyAddress();
@@ -46,7 +47,7 @@ public class CategoryInteractorImpl implements ICategoryInteractor{
         market2.setmId(Long.valueOf(2));
         market2.setCategory(category);
         market2.setImage(R.drawable.khan_zaid);
-        market2.setProducts(getFackProducts());
+        market2.setProductFamily(getFackFamilyProductList());
         market2.setOffers(getFakeOffers());
         //----------------------------------------2
         MyAddress address3 = new MyAddress();
@@ -60,7 +61,7 @@ public class CategoryInteractorImpl implements ICategoryInteractor{
         market3.setmId(Long.valueOf(3));
         market3.setCategory(category);
         market3.setImage(R.drawable.aleakarshak);
-        market3.setProducts(getFackProducts());
+        market3.setProductFamily(getFackFamilyProductList());
         market3.setOffers(getFakeOffers());
         //----------------------------------------3
         MyAddress address4 = new MyAddress();
@@ -74,7 +75,7 @@ public class CategoryInteractorImpl implements ICategoryInteractor{
         market4.setmId(Long.valueOf(4));
         market4.setCategory(category);
         market4.setImage(R.drawable.osama);
-        market4.setProducts(getFackProducts());
+        market4.setProductFamily(getFackFamilyProductList());
         market4.setOffers(getFakeOffers());
         //----------------------------------------4
         MyAddress address5 = new MyAddress();
@@ -88,7 +89,7 @@ public class CategoryInteractorImpl implements ICategoryInteractor{
         market5.setmId(Long.valueOf(5));
         market5.setCategory(category);
         market5.setImage(R.drawable.semsemeh);
-        market5.setProducts(getFackProducts());
+        market5.setProductFamily(getFackFamilyProductList());
         market5.setOffers(getFakeOffers());
         //----------------------------------------5
 
@@ -102,16 +103,48 @@ public class CategoryInteractorImpl implements ICategoryInteractor{
         return markets;
     }
 
-    private List<Item> getFackProducts(){
+    private List<ProductFamily> getFackFamilyProductList(){
+        String[] labels = { "ساندويش", "وجبات دجاج"};
+        List<ProductFamily> list = new ArrayList<>(2);
+        ProductFamily family = new ProductFamily(labels[0]);
+        family.setmId((long)0);
+        family.setProducts(getFackProductsSandesh());
+        list.add(family);
 
-        String[] names = {"وجبه شورما عادي" , "وجبه شورما سوبر" , "وجبه شورما دبل" , "وجبه شورما ايطالي" ,"سندويشه شورما سوبر","سندويشه شورما عادي"};
-        double[] prices = { 1.5,2.25 ,2.27 ,3.00 ,1.00 ,0.75};
+        ProductFamily family1 = new ProductFamily(labels[1]);
+        family1.setmId((long)1);
+        family1.setProducts(getFackProductsMeals());
+        list.add(family1);
+        return list;
+    }
+    private List<Item> getFackProductsSandesh(){
+
+
+        String[] names = {"سندويشه شورما سوبر","سندويشه شورما عادي"};
+        double[] prices = {1.00 ,0.75};
+        int[] images =  {R.drawable.supersandesh, R.drawable.normalsandesh};
 
         List<Item> products = new ArrayList<>();
         for(int i = 0 ; i < names.length ; i++){
             Product product = new Product(names[i]);
             product.setPrice(new Price(prices[i] ," JD"));
-            product.setImage(R.drawable.cart);
+            product.setImage(images[i]);
+            products.add(product);
+        }
+        return products;
+    }
+
+    private List<Item> getFackProductsMeals(){
+
+        String[] names = {"وجبه شورما عادي" , "وجبه شورما سوبر" , "وجبه شورما دبل" , "وجبه شورما ايطالي"};
+        double[] prices = { 1.5,2.25 ,2.27 ,3.00};
+        int[] images =  {R.drawable.normalmeal , R.drawable.supermeal , R.drawable.doublemeal , R.drawable.etalymeal};
+
+        List<Item> products = new ArrayList<>();
+        for(int i = 0 ; i < names.length ; i++){
+            Product product = new Product(names[i]);
+            product.setPrice(new Price(prices[i] ," JD"));
+            product.setImage(images[i]);
             products.add(product);
         }
         return products;

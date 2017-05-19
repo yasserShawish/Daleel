@@ -3,6 +3,7 @@ package com.axioms.www.daleel.Adapters;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 import com.axioms.www.daleel.R;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.Item;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.ShoppingCartHolder;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -29,12 +32,12 @@ public class ItemAdapter extends CustomAdapter<Item> {
         TextView itemName;
         TextView itemPrice;
         Button removeItem;
-        Button addedItem;
+        TextView quantityText;
         TextView typeLabel;
     }
 
     @Override
-    public View getView(int position, View convertView, final ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         final ItemHolder holder;
         View vi = convertView;
         try{
@@ -49,6 +52,7 @@ public class ItemAdapter extends CustomAdapter<Item> {
                     holder.itemPrice = (TextView) vi.findViewById(R.id.price_text_view_details);
                     holder.removeItem= (Button) vi.findViewById(R.id.remove_item_button);
                     holder.typeLabel= (TextView) vi.findViewById(R.id.item_type_label);
+                    holder.quantityText = (TextView) vi.findViewById(R.id.item_quantity);
 
                     vi.setTag(holder);
                 }else{
@@ -65,13 +69,19 @@ public class ItemAdapter extends CustomAdapter<Item> {
             holder.itemName.setText(currentItem.getName());
             holder.itemPrice.setText(currentItem.getPrice().toString());
             holder.typeLabel.setText(currentItem.getType().getType());
+            holder.quantityText.setText(""+cartHolder.getQuantity(currentItem));
             holder.removeItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int oldQuantity = cartHolder.getQuantity(currentItem);
                     cartHolder.removeFromCart(currentItem);
+                    int newQuantity = oldQuantity ==1?0:cartHolder.getQuantity(currentItem);
                     Button cartButton = (Button) view.getRootView().findViewById(R.id.cart_button);
+                    TextView priceLable = (TextView) view.getRootView().findViewById(R.id.cartPrice);
                     cartButton.setText(String.format("%d", cartHolder.shoppingCartSize()));
-                    remove(currentItem);
+                    priceLable.setText("المجموع: "+cartHolder.getCartPriceTotal().getPrice()+cartHolder.getCartPriceTotal().getCurrency());
+                    holder.quantityText.setText(""+newQuantity);
+                    notifyDataSetChanged();
                 }
             });
         }catch (Exception e){
