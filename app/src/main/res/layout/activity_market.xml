@@ -9,58 +9,6 @@
     tools:context="com.axioms.www.daleel.MarketActivity">
 
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="290dp"
-        android:paddingTop="@dimen/appbar_padding_top"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-
-        <include layout="@layout/app_bar_comon" />
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="17dp"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        </android.support.v7.widget.Toolbar>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="164dp"
-            android:id="@+id/market_header_layout"
-            android:weightSum="1">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/ic_launcher"
-                android:id="@+id/market_image"
-                android:layout_weight="0.88" />
-
-            <TextView
-                android:text="TextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/market_name_text"
-                android:layout_weight="0.03"
-                android:gravity="right"
-                android:textSize="24sp"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </android.support.design.widget.AppBarLayout>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -72,7 +20,73 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="276dp"
+        android:layout_height="329dp"
         app:layout_behavior="@string/bottom_sheet_behavior" />
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="236dp"
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+
+        <include layout="@layout/app_bar_comon" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="129dp"
+            android:id="@+id/market_header_layout"
+            android:gravity="center_vertical"
+            android:background="#DDDEE3">
+
+            <ImageView
+                android:layout_width="144dp"
+                android:maxHeight="110dp"
+                android:maxWidth="144dp"
+                android:minHeight="110dp"
+                android:minWidth="144dp"
+                app:srcCompat="@drawable/semsemeh"
+                android:id="@+id/market_image"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="110dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/market_name_text"
+                    android:gravity="right"
+                    android:textSize="24sp"
+                    android:textAlignment="gravity"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/textColorPrimary"
+                    android:layout_gravity="top" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/market_city_text"
+                    android:text="city"
+                    android:textColor="@color/textColorPrimary"
+                    android:textAlignment="gravity"
+                    android:gravity="right"
+                    android:paddingRight="20dp"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#25292C" />
+
+    </android.support.design.widget.AppBarLayout>
 
 </android.support.design.widget.CoordinatorLayout>
