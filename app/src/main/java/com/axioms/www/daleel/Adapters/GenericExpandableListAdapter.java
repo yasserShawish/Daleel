@@ -126,14 +126,17 @@ public class GenericExpandableListAdapter<T , E> extends BaseExpandableListAdapt
         holder.orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cartHolder.addToCart(currentProduct ,1);
+                boolean addedSuccessfully = cartHolder.addToCart(currentProduct ,1);
+                if(addedSuccessfully){
+                    //AlertDialog
+                }
                 Button cartButton = (Button) view.getRootView().findViewById(R.id.cart_button);
                 cartButton.setText(String.format("%d", cartHolder.shoppingCartSize()));
                 cartButton.setTextColor(Color.RED);
             }
         });
         holder.name.setText(currentProduct.getName());
-        holder.price.setText(currentProduct.getPrice().getPrice()+""+currentProduct.getPrice().getCurrency());
+        holder.price.setText(currentProduct.getPrice().getPrice()+""+currentProduct.getPrice().getCurrency().getCurrencyCode());
         return rowView;
     }
 

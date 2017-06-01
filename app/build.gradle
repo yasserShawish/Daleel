@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -31,4 +32,10 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     testCompile 'junit:junit:4.12'
+    compile('com.paypal.sdk:paypal-android-sdk:2.15.3') {
+        exclude group: 'io.card'
+    }
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.maps.android:android-maps-utils:0.5+'
+    compile 'com.google.android.gms:play-services:10.2.6+'
 }

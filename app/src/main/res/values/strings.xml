@@ -29,6 +29,9 @@
     <string name="product_type">product</string>
     <string name="offer_type">offer</string>
     <string name="category_label">الفئات</string>
+    <string name="conferm_order">تأكيد الطلب</string>
+    <string name="payPal_appclientId">AQELQVOXXHR-dLR_6mZkvcN5kGk88K1hyPIUHm27oHZLjkKgKdND9NWnIa2_3LG9ewor3EztwUHNxEmF</string>
+    <string name="cartSum">"المجموع: "</string>
     <integer name="numberOfTabsForMarket">3</integer>
     <string-array name="tabs_titles">
         <item>السلع المتوفرة</item>

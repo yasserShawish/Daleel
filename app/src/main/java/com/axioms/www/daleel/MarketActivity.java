@@ -1,23 +1,22 @@
 package com.axioms.www.daleel;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.design.widget.TabLayout;
+import android.location.Location;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -36,10 +35,14 @@ import com.axioms.www.daleel.Market.MarketView;
 import com.axioms.www.daleel.metadata.MarketMeta;
 import com.axioms.www.daleel.metadata.MyCategory;
 import com.axioms.www.daleel.metadata.OfferMeta;
+import com.axioms.www.daleel.metadata.Price;
 import com.axioms.www.daleel.metadata.ProductFamily;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.ShoppingCartHolder;
+import com.axioms.www.daleel.utils.ApiUtils;
 import com.axioms.www.daleel.utils.DallelConstant;
+import com.google.gson.Gson;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -78,7 +81,12 @@ public class MarketActivity extends AppCompatActivity implements MarketView {
     FloatingActionButton fab;
     @BindView(R.id.market_city_text)
     TextView marketCity;
+    @BindView(R.id.market_distance_text)
+    TextView distanceText;
+    @BindView(R.id.market_delvery_text)
+    TextView delveryPrice;
     static MarketMeta marketMeta;
+    Location currentLocation ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +114,28 @@ public class MarketActivity extends AppCompatActivity implements MarketView {
         ShoppingCartHolder shoppingCartHolder = ShoppingCartHolder.Instance();
         cartButton.setText(String.format("%d", shoppingCartHolder.getCart().getSize()));
         cartButton.setTextColor(Color.RED);
+        Gson gson = new Gson();
+        SharedPreferences shared = getSharedPreferences(
+                DallelConstant.SHARED_PREF_NAME.getName()
+                , MODE_PRIVATE);
+        currentLocation = gson.fromJson(shared.getString(DallelConstant.USER_LOCATION.getName(), null), Location.class);
+        distanceLocation();
+    }
+    public void distanceLocation(){
+        if(currentLocation != null){
+            Location marketLocation = new Location("marketLocation");
+            marketLocation.setLatitude(marketMeta.getAddress().getLatitude());
+            marketLocation.setLongitude(marketMeta.getAddress().getLongitude());
+
+            Double dis = (ApiUtils.distanceBetween(currentLocation , marketLocation))/1000.0;//transfer the distance from meters to km
+            DecimalFormat df = new DecimalFormat("#.##");
+            String distance = df.format(dis);
+            distanceText.setText("المسافه: "+distance+"كم");
+            Price dPrice = marketMeta.getDeliveryPrice();
+            if(dPrice != null){
+                delveryPrice.setText("سعر التوصيل: "+(ApiUtils.convertDigits(String.valueOf(Math.round(dis)*dPrice.getPrice())))+dPrice.getCurrency().getCurrencyCode());
+            }
+        }
     }
 
     @OnClick(R.id.fab)
@@ -116,7 +146,7 @@ public class MarketActivity extends AppCompatActivity implements MarketView {
     void productDetails(){
     }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+        public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_market, menu);
         return true;

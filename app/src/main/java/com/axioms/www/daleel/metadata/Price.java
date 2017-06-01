@@ -1,6 +1,7 @@
 package com.axioms.www.daleel.metadata;
 
 import java.io.Serializable;
+import java.util.Currency;
 
 /**
  * Created by Ahmad Ababneh on 02/05/2017.
@@ -8,22 +9,22 @@ import java.io.Serializable;
 
 public class Price implements Serializable{
 
-    String currency;
+    Currency currency;
     double price;
 
     public Price(){
 
     }
-    public Price(double price, String currency) {
+    public Price(double price, Currency currency) {
         this.price = price;
         this.currency = currency;
     }
 
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(Currency currency) {
         this.currency = currency;
     }
 
@@ -37,6 +38,6 @@ public class Price implements Serializable{
 
     @Override
     public String toString() {
-        return price+""+currency;
+        return price+""+currency.getCurrencyCode();
     }
 }

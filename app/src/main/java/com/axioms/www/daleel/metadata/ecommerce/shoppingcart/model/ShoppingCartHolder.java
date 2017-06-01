@@ -1,9 +1,8 @@
 package com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model;
 
+import com.axioms.www.daleel.metadata.AbstractMeta;
 import com.axioms.www.daleel.metadata.Price;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +14,7 @@ public class ShoppingCartHolder {
 
     private Cart<Item> cart;
     static ShoppingCartHolder instance;
+    static AbstractMeta curentMarket;
 
     private ShoppingCartHolder(){
         cart = new Cart<>(new HashMap<Item ,Integer>());
@@ -24,9 +24,19 @@ public class ShoppingCartHolder {
         return this.cart;
     }
 
-    public void addToCart(Item item , int quantity)
+    public boolean addToCart(Item item , int quantity)
     {
-        this.cart.addItem(item , quantity);
+        if(curentMarket == null){
+            curentMarket = item.getMarket();
+            this.cart.addItem(item , quantity);
+            return true;
+        }else {
+            if(curentMarket == item.getMarket()){
+                this.cart.addItem(item , quantity);
+                return true;
+            }
+            return false;
+        }
     };
 
     public int shoppingCartSize(){
@@ -47,15 +57,11 @@ public class ShoppingCartHolder {
 
     public Price getCartPriceTotal(){
         double allPrice = 0.0;
-        String curency = null;
         for (Item item:getCartItems()) {
             int quantity = getQuantity(item);
             allPrice += item.getPrice().getPrice()*quantity;
-            if(curency == null){
-                curency = item.getPrice().getCurrency();
-            }
         }
-        return new Price(allPrice ,curency);
+        return new Price(allPrice ,cart.getCurrency());
     }
 
     public int getQuantity(Item item){
@@ -67,5 +73,9 @@ public class ShoppingCartHolder {
             instance = new ShoppingCartHolder();
         }
         return instance;
+    }
+
+    public void removeAllItems() {
+        cart.removeAll();
     }
 }

@@ -78,6 +78,27 @@
                     android:gravity="right"
                     android:paddingRight="20dp"
                     android:textSize="18sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/market_distance_text"
+                    android:text="city"
+                    android:textColor="@color/textColorPrimary"
+                    android:textAlignment="gravity"
+                    android:gravity="right"
+                    android:paddingRight="20dp"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/market_delvery_text"
+                    android:text="city"
+                    android:textColor="@color/textColorPrimary"
+                    android:textAlignment="gravity"
+                    android:gravity="right"
+                    android:paddingRight="20dp"
+                    android:textSize="18sp"/>
+
             </LinearLayout>
         </LinearLayout>
 

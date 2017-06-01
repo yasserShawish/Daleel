@@ -3,17 +3,13 @@ package com.axioms.www.daleel.Adapters;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.axioms.www.daleel.R;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.Item;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.ShoppingCartHolder;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -75,11 +71,18 @@ public class ItemAdapter extends CustomAdapter<Item> {
                 public void onClick(View view) {
                     int oldQuantity = cartHolder.getQuantity(currentItem);
                     cartHolder.removeFromCart(currentItem);
-                    int newQuantity = oldQuantity ==1?0:cartHolder.getQuantity(currentItem);
+                    int newQuantity = oldQuantity ==1?0:oldQuantity--;
                     Button cartButton = (Button) view.getRootView().findViewById(R.id.cart_button);
                     TextView priceLable = (TextView) view.getRootView().findViewById(R.id.cartPrice);
-                    cartButton.setText(String.format("%d", cartHolder.shoppingCartSize()));
-                    priceLable.setText("المجموع: "+cartHolder.getCartPriceTotal().getPrice()+cartHolder.getCartPriceTotal().getCurrency());
+                    int cartSize = cartHolder.shoppingCartSize();
+                    if(cartSize > 0){
+                        cartButton.setText(String.format("%d", cartSize));
+                        priceLable.setText("المجموع: "+cartHolder.getCartPriceTotal().getPrice()+cartHolder.getCartPriceTotal().getCurrency().getCurrencyCode());
+                    }else{
+                        TextView empetyMessage = (TextView) view.getRootView().findViewById(R.id.empty_cart);
+                        empetyMessage.setVisibility(View.VISIBLE);
+                        priceLable.setVisibility(View.INVISIBLE);
+                    }
                     holder.quantityText.setText(""+newQuantity);
                     notifyDataSetChanged();
                 }

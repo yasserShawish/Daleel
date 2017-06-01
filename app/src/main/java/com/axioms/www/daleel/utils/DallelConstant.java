@@ -7,7 +7,9 @@ package com.axioms.www.daleel.utils;
 public enum DallelConstant {
 
     CATEGORY("category"),
-    MARKET("market");
+    MARKET("market"),
+    SHARED_PREF_NAME("myPrefName"),
+    USER_LOCATION("user_location");
 
     private final String name;
 

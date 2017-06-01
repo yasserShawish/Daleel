@@ -11,7 +11,9 @@ import com.axioms.www.daleel.metadata.ProductFamily;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.Item;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Ahmad Ababneh on 09/04/2017.
@@ -29,12 +31,15 @@ public class CategoryInteractorImpl implements ICategoryInteractor{
         address1.setPhoneNumber("0788722431");
         address1.setFax("1100548");
         address1.setAddressLine("اربد مجمع عمان الجديد و شارع الجامعه");
+        address1.setLatitude(32.537135);
+        address1.setLongitude(35.870043);
         MarketMeta market1 = new MarketMeta("شورمجي", address1);
         market1.setmId(Long.valueOf(1));
         market1.setCategory(category);
         market1.setImage(R.drawable.shawermaji);
         market1.setProductFamily(getFackFamilyProductList());
         market1.setOffers(getFakeOffers());
+        market1.setDeliveryPrice(new Price(0.5 , Currency.getInstance(new Locale("arabic" ,"jordan"))));
         //----------------------------------------1
         MyAddress address2 = new MyAddress();
         address2.setCountry("الاردن");
@@ -127,7 +132,7 @@ public class CategoryInteractorImpl implements ICategoryInteractor{
         List<Item> products = new ArrayList<>();
         for(int i = 0 ; i < names.length ; i++){
             Product product = new Product(names[i]);
-            product.setPrice(new Price(prices[i] ," JD"));
+            product.setPrice(new Price(prices[i] ,Currency.getInstance(new Locale("ar" ,"jordan"))));
             product.setImage(images[i]);
             products.add(product);
         }
@@ -143,7 +148,7 @@ public class CategoryInteractorImpl implements ICategoryInteractor{
         List<Item> products = new ArrayList<>();
         for(int i = 0 ; i < names.length ; i++){
             Product product = new Product(names[i]);
-            product.setPrice(new Price(prices[i] ," JD"));
+            product.setPrice(new Price(prices[i] ,Currency.getInstance(new Locale("arabic" ,"jordan"))));
             product.setImage(images[i]);
             products.add(product);
         }
@@ -159,7 +164,7 @@ public class CategoryInteractorImpl implements ICategoryInteractor{
             offerMeta.setImage(R.drawable.family_offer);
             offerMeta.setDescription("عرض العائلي خمس ساندويشات وعلبه بيبسي بس 6");
             offerMeta.setName("عرض العائله");
-            offerMeta.setPrice(new Price(9.99 ,"JD"));
+            offerMeta.setPrice(new Price(9.99 ,Currency.getInstance(new Locale("arabic" ,"jordan"))));
             fakeOffers.add(offerMeta);
         }
 

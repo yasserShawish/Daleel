@@ -4,7 +4,6 @@ import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.Item;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Ahmad Ababneh on 12/04/2017.
@@ -15,6 +14,7 @@ public class MarketMeta extends AbstractMeta{
     private MyCategory category;
     private MyAddress address;
     private List<ProductFamily> productFamily;
+    private Price deliveryPrice;
 
     public MarketMeta(){
 
@@ -63,5 +63,13 @@ public class MarketMeta extends AbstractMeta{
 
     public void setAddress(MyAddress address) {
         this.address = address;
+    }
+
+    public Price getDeliveryPrice() {
+        return deliveryPrice;
+    }
+
+    public void setDeliveryPrice(Price deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
     }
 }

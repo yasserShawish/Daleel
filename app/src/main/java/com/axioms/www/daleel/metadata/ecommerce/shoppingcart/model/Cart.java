@@ -1,6 +1,9 @@
 package com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model;
 
+import com.axioms.www.daleel.metadata.Price;
+
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,6 +15,8 @@ public class Cart<T> {
 
     private HashMap<T , Integer> items;
     private List<T> displayItems;
+    private Currency currency;
+    private Price deliveryPrice;
 
     public Cart() {
 
@@ -71,7 +76,28 @@ public class Cart<T> {
         this.items = items;
     }
 
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public Price getDeliveryPrice() {
+        return deliveryPrice;
+    }
+
+    public void setDeliveryPrice(Price deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
+    }
+
     public boolean isEmpty() {
         return items.isEmpty();
+    }
+
+    public void removeAll() {
+        displayItems.clear();
+        items.clear();
     }
 }
