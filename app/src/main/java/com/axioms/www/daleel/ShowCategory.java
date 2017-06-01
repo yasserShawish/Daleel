@@ -25,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ShowCategory extends AppCompatActivity implements CategoryView {
 
@@ -71,6 +72,12 @@ public class ShowCategory extends AppCompatActivity implements CategoryView {
         intent.putExtra(DallelConstant.MARKET.getName() , marketMeta);
         startActivity(intent);
   /*      Toast.makeText(getApplicationContext() , marketMeta.getName() , Toast.LENGTH_LONG).show();*/
+    }
+
+    @OnClick(R.id.cart_button)
+    public void goToCart(){
+        Intent intent = new Intent(this , ShowCart.class);
+        startActivity(intent);
     }
 
     @Override

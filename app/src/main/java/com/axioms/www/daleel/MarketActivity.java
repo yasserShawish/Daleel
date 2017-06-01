@@ -1,5 +1,6 @@
 package com.axioms.www.daleel;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
@@ -138,13 +139,17 @@ public class MarketActivity extends AppCompatActivity implements MarketView {
         }
     }
 
+    @OnClick(R.id.cart_button)
+    public void goToCart(){
+        Intent intent = new Intent(this , ShowCart.class);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.fab)
     public void returnToBack(){
         presenter.goBack(marketMeta.getCategory());
     }
-    @OnClick(R.id.cart_button)
-    void productDetails(){
-    }
+
     @Override
         public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
