@@ -15,6 +15,7 @@ import com.axioms.www.daleel.Adapters.ItemAdapter;
 import com.axioms.www.daleel.metadata.Price;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.Item;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.ShoppingCartHolder;
+import com.axioms.www.daleel.utils.ApiUtils;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -57,7 +58,7 @@ public class ShowCart extends AppCompatActivity {
             adapter = new ItemAdapter(this , R.layout.product_details_layout , cartHolder.getCartItems() , cartHolder);
             itemsListView.setAdapter(adapter);
             emptyMessage.setVisibility(View.INVISIBLE);
-            totalPrice.setText(getString(R.string.cartSum)+cartHolder.getCartPriceTotal().getPrice()+cartHolder.getCartPriceTotal().getCurrency().getCurrencyCode());
+            totalPrice.setText(getString(R.string.cartSum)+ ApiUtils.getFormattedPrice(cartHolder.getCartPriceTotal()));
         }
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -84,6 +85,8 @@ public class ShowCart extends AppCompatActivity {
             intent.putExtra(PayPalPayment.PAYMENT_INTENT_SALE, m_configuration);
             intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
             startActivityForResult(intent, m_paypalRequestCode);
+        }else {
+            // add something in the future
         }
 
 

@@ -2,6 +2,7 @@ package com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model;
 
 import com.axioms.www.daleel.metadata.AbstractMeta;
 import com.axioms.www.daleel.metadata.Price;
+import com.axioms.www.daleel.utils.ApiUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,7 @@ public class ShoppingCartHolder {
     static AbstractMeta curentMarket;
 
     private ShoppingCartHolder(){
-        cart = new Cart<>(new HashMap<Item ,Integer>());
+        cart = new Cart<>(new HashMap<Item ,Integer>() , ApiUtils.getDefaultCurrency());
     }
 
     public Cart<Item> getCart(){

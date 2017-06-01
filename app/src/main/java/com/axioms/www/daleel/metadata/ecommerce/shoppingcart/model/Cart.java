@@ -22,9 +22,10 @@ public class Cart<T> {
 
     }
 
-    public Cart(HashMap<T , Integer> items) {
+    public Cart(HashMap<T , Integer> items , Currency currency) {
         this.items = items;
         this.displayItems = new ArrayList<>();
+        this.currency = currency;
     }
 
     public HashMap<T , Integer> getAllItems() {

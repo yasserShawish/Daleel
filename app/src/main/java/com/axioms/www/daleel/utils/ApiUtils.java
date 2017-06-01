@@ -2,8 +2,13 @@ package com.axioms.www.daleel.utils;
 
 import android.location.Location;
 
+import com.axioms.www.daleel.metadata.Price;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
+
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Locale;
 
 /**
  * Created by Ahmad Ababneh on 5/27/2017.
@@ -42,6 +47,26 @@ public class ApiUtils {
         }
 
         return SphericalUtil.computeDistanceBetween(start, end);
+    }
+
+    public static Currency getCountryCurrency(String lang  , String country){
+        if(lang == null || lang.isEmpty() || country == null || country.isEmpty()){
+            return getDefaultCurrency();
+        }
+        return  Currency.getInstance(new Locale(lang ,country));
+    }
+
+    public static Currency getDefaultCurrency(){
+        return Currency.getInstance(new Locale("ar" ,"JO"));
+    }
+
+    public static String getFormattedPrice(Price price){
+        if(price == null){
+            return "";
+        }
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        format.setCurrency(price.getCurrency());
+        return format.format(price.getPrice());
     }
 
 

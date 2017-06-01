@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.axioms.www.daleel.R;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.Item;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.ShoppingCartHolder;
+import com.axioms.www.daleel.utils.ApiUtils;
 
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class ItemAdapter extends CustomAdapter<Item> {
 
             holder.itemIamge.setImageResource(currentItem.getImage());
             holder.itemName.setText(currentItem.getName());
-            holder.itemPrice.setText(currentItem.getPrice().toString());
+            holder.itemPrice.setText(ApiUtils.getFormattedPrice(currentItem.getPrice()));
             holder.typeLabel.setText(currentItem.getType().getType());
             holder.quantityText.setText(""+cartHolder.getQuantity(currentItem));
             holder.removeItem.setOnClickListener(new View.OnClickListener() {
@@ -71,13 +72,13 @@ public class ItemAdapter extends CustomAdapter<Item> {
                 public void onClick(View view) {
                     int oldQuantity = cartHolder.getQuantity(currentItem);
                     cartHolder.removeFromCart(currentItem);
-                    int newQuantity = oldQuantity ==1?0:oldQuantity--;
+                    int newQuantity = oldQuantity ==1?0:--oldQuantity;
                     Button cartButton = (Button) view.getRootView().findViewById(R.id.cart_button);
                     TextView priceLable = (TextView) view.getRootView().findViewById(R.id.cartPrice);
                     int cartSize = cartHolder.shoppingCartSize();
                     if(cartSize > 0){
                         cartButton.setText(String.format("%d", cartSize));
-                        priceLable.setText("المجموع: "+cartHolder.getCartPriceTotal().getPrice()+cartHolder.getCartPriceTotal().getCurrency().getCurrencyCode());
+                        priceLable.setText("المجموع: "+ ApiUtils.getFormattedPrice(cartHolder.getCartPriceTotal()));
                     }else{
                         TextView empetyMessage = (TextView) view.getRootView().findViewById(R.id.empty_cart);
                         empetyMessage.setVisibility(View.VISIBLE);

@@ -16,6 +16,7 @@ import com.axioms.www.daleel.metadata.Product;
 import com.axioms.www.daleel.metadata.ProductFamily;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.Item;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.ShoppingCartHolder;
+import com.axioms.www.daleel.utils.ApiUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -136,7 +137,7 @@ public class GenericExpandableListAdapter<T , E> extends BaseExpandableListAdapt
             }
         });
         holder.name.setText(currentProduct.getName());
-        holder.price.setText(currentProduct.getPrice().getPrice()+""+currentProduct.getPrice().getCurrency().getCurrencyCode());
+        holder.price.setText(ApiUtils.getFormattedPrice(currentProduct.getPrice()));
         return rowView;
     }
 
