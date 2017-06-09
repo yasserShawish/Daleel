@@ -5,6 +5,7 @@ import com.axioms.www.daleel.services.CategoryService;
 import com.axioms.www.daleel.services.impl.CategoryServiceImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ahmad ababneh on 24/02/2017.
@@ -25,7 +26,7 @@ public class MainInteractorImpl implements MainInteractor {
     }
 
     @Override
-    public ArrayList<MyCategory> findAllCategories() {
+    public List<MyCategory> findAllCategories() {
         return categoryService.findALlCategory();
     }
 }

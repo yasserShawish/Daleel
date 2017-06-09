@@ -1,5 +1,7 @@
 package com.axioms.www.daleel.metadata;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,10 +10,13 @@ import java.util.List;
  */
 public class MyCategory implements Serializable{
 
-    private String name;
+    @SerializedName("id")
     private int id;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("image")
+    private String image;
     private List<MarketMeta> categoryMarket;
-    private int image;
 
     public String getName() {
         return name;
@@ -37,11 +42,11 @@ public class MyCategory implements Serializable{
         this.categoryMarket = categoryMarket;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

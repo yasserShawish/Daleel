@@ -16,7 +16,9 @@ import android.content.Context;
 import com.axioms.www.daleel.R;
 import com.axioms.www.daleel.metadata.MyCategory;
 import com.axioms.www.daleel.metadata.ecommerce.shoppingcart.model.ShoppingCartHolder;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 
 public class CustomAdapter<T> extends ArrayAdapter<T> {
@@ -75,7 +77,7 @@ public class CustomAdapter<T> extends ArrayAdapter<T> {
         MyCategory currentCateogry = (MyCategory) lItems.get(position);
 
         holder.tv.setText(currentCateogry.getName());
-        holder.img.setImageResource(currentCateogry.getImage());
+        Picasso.with(getContext()).load(currentCateogry.getImage()).into(holder.img);
         return rowView;
     }
 

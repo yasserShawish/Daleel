@@ -1,10 +1,18 @@
 package com.axioms.www.daleel.services.impl;
 
-import com.axioms.www.daleel.R;
+import android.util.Log;
+
 import com.axioms.www.daleel.metadata.MyCategory;
+import com.axioms.www.daleel.restServices.ApiClient;
+import com.axioms.www.daleel.restServices.DalelDataService;
+import com.axioms.www.daleel.restServices.RetrieveCategoryTask;
 import com.axioms.www.daleel.services.CategoryService;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import retrofit2.Retrofit;
 
 /**
  * Created by Ahmad Ababneh on 29/04/2017.
@@ -12,21 +20,25 @@ import java.util.ArrayList;
 
 public class CategoryServiceImpl implements CategoryService{
 
-    int[] categ_images = {R.drawable.books ,R.drawable.resturntsfoods ,R.drawable.fernture,R.drawable.water} ;
-    String[] catiegory_array = {"كتب","مطاعم","اثاث","مياه"};
+    DalelDataService dalelDataService;
+
+    public  CategoryServiceImpl(){
+        dalelDataService = ApiClient.getDalelDataService();
+    }
 
     @Override
-    public ArrayList<MyCategory> findALlCategory(){
-        ArrayList<MyCategory> list = new ArrayList();
-
-        for (int i = 0 ; i < categ_images.length;i++ ) {
-            MyCategory category = new MyCategory();
-            category.setId(i);
-            category.setName(catiegory_array[i]);
-            category.setImage(categ_images[i]);
-            list.add(category);
+    public List<MyCategory> findALlCategory() {;
+        try {
+            RetrieveCategoryTask categoryTask = new RetrieveCategoryTask();
+            categoryTask.execute(dalelDataService);
+            return categoryTask.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            Log.e("Unknown error",ex.getMessage());
         }
-
-        return list;
+        return new ArrayList<>();
     }
 }

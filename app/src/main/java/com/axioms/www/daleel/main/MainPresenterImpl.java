@@ -3,6 +3,7 @@ package com.axioms.www.daleel.main;
 import com.axioms.www.daleel.metadata.MyCategory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ahmad Ababneh on 24/02/2017.
@@ -29,7 +30,12 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public ArrayList<MyCategory> getAllCategories() {
+    public void populateList() {
+        List<MyCategory> categories = getAllCategories();
+        mainView.createListView(categories);
+    }
+
+    private List<MyCategory> getAllCategories() {
         return interactor.findAllCategories();
     }
 }

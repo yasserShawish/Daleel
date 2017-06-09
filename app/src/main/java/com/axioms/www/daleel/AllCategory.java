@@ -16,6 +16,7 @@ import com.axioms.www.daleel.services.CategoryService;
 import com.axioms.www.daleel.services.impl.CategoryServiceImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +43,7 @@ public class AllCategory extends AppCompatActivity implements AdapterView.OnItem
     }
 
     private void createListViewAdapter() {
-        ArrayList<MyCategory> allCategories = categoryService.findALlCategory();
+        List<MyCategory> allCategories = categoryService.findALlCategory();
         CustomAdapter adapter = new CustomAdapter(this , R.layout.custom_list ,allCategories , ShoppingCartHolder.Instance());
         allCat_list.setAdapter(adapter);
         allCat_list.setOnItemSelectedListener(this);

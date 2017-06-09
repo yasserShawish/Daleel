@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         presenter = new MainPresenterImpl(this, new MainInteractorImpl());
-        createListView();
+        presenter.populateList();
         createSpinnerList();
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         /*List<Address> addresses;
@@ -97,8 +97,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
         }*/
     }
 
-    private void createListView() {
-        ArrayList<MyCategory> categories = getAllCategories();
+    public void createListView(List<MyCategory> categories) {
         CustomAdapter category_adapter = new CustomAdapter(this , R.layout.custom_list , categories , ShoppingCartHolder.Instance());
         listView.setAdapter(category_adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,10 +107,6 @@ public class MainActivity extends AppCompatActivity implements MainView, Adapter
                 presenter.navigateToCategory(category);
             }
         });
-    }
-
-    private ArrayList<MyCategory> getAllCategories() {
-        return presenter.getAllCategories();
     }
 
     @Override

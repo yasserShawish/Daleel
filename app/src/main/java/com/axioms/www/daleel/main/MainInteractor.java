@@ -12,5 +12,5 @@ import java.util.List;
 public interface MainInteractor {
 
     String[] getAllCategory();
-    ArrayList<MyCategory> findAllCategories();
+    List<MyCategory> findAllCategories();
 }
